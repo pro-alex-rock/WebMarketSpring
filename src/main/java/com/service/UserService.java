@@ -28,9 +28,9 @@ public class UserService implements DefaultService<User> {
         return jdbcUserDao.getByName(login);
     }
 
-    public void update(User user) {
+    /*public void update(User user) {
         jdbcUserDao.updateOne(user);
-    }
+    }*/
 
     @Override
     public User selectOne(int id) {
@@ -48,7 +48,7 @@ public class UserService implements DefaultService<User> {
     }
 
     @Override
-    public void updateOne(int id, User user) {
+    public void updateOne(User user) {
 
     }
 

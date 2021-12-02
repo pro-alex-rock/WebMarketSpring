@@ -12,7 +12,7 @@ public interface DefaultService<T> {
 
     void create(T t);
 
-    void updateOne(int id, T t);
+    void updateOne(T t);
 
     void delete(int id);
 }

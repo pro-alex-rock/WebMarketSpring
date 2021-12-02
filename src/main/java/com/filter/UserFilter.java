@@ -1,4 +1,4 @@
-package filter;
+package com.filter;
 
 import com.configuration.UserServiceFactory;
 import com.service.UserService;

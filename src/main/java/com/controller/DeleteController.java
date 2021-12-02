@@ -4,30 +4,24 @@ import com.model.Product;
 import com.service.DefaultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/add")
-public class AddController {
+@RequestMapping("/delete")
+public class DeleteController {
+
     private final DefaultService<Product> productService;
 
     @Autowired
-    public AddController(DefaultService<Product> productService) {
+    public DeleteController(DefaultService<Product> productService) {
         this.productService = productService;
     }
 
-    @GetMapping
-    public String addPage() {
-        return "add";
-    }
-
-    @PostMapping
-    public String add(@ModelAttribute("product")Product product) {
-        productService.create(product);
+    @GetMapping("/{id}")
+    public String deleteProduct(@PathVariable("id") String id) {
+        productService.delete(Integer.parseInt(id));
         return "redirect:/products";
     }
 }

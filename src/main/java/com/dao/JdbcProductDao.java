@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class JdbcProductDao implements DaoResource<model.Product> {
+public class JdbcProductDao implements DaoResource<Product> {
     private static final Logger logger = LoggerFactory.getLogger(JdbcProductDao.class);
     private final DataSource dataSource;
 
@@ -22,7 +23,7 @@ public class JdbcProductDao implements DaoResource<model.Product> {
     }
 
     @Override
-    public model.Product selectOne(int id) {
+    public Product selectOne(int id) {
         if (id <= 0) {
             logger.info("Inserted incorrect id.");
             throw new RuntimeException("Inserted incorrect id.");

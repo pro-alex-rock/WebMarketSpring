@@ -40,8 +40,8 @@ public class ProductService implements DefaultService<Product> {
     }
 
     @Override
-    public void updateOne(int id, Product product) {
-        productDao.updateOne(id, product);
+    public void updateOne(Product product) {
+        productDao.updateOne(product);
     }
 
     @Override

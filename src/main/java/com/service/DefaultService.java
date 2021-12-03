@@ -1,10 +1,12 @@
 package com.service;
 
+import com.model.Product;
+
 import java.util.List;
 import java.util.Optional;
 
 public interface DefaultService<T> {
-    T selectOne(int id);
+    Optional<T> selectOne(int id);
 
     Optional<T> getByName(String name);
 

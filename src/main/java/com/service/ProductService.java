@@ -1,6 +1,7 @@
 package com.service;
 
 import com.dao.DaoResource;
+import com.dao.JdbcProductDao;
 import com.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,17 +12,16 @@ import java.util.Optional;
 
 @Service
 public class ProductService implements DefaultService<Product> {
-    private final DaoResource<Product> productDao;
+    private final JdbcProductDao productDao;
 
     @Autowired
-    public ProductService(DaoResource<Product> productDao){
+    public ProductService(JdbcProductDao productDao){
         this.productDao = productDao;
     }
-    //private final DaoResource productDao = ProductDaoFactory.getInstance(new PostgresSource());
 
     @Override
-    public Product selectOne(int id) {
-        return (Product) productDao.selectOne(id);
+    public Optional<Product> selectOne(int id) {
+        return productDao.selectOne(id);
     }
 
     @Override

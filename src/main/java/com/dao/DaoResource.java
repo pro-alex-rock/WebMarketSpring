@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DaoResource<T> {
-    T selectOne(int id);
+    Optional<T> selectOne(int id);
 
     Optional<T> getByName(String name);
 
@@ -12,7 +12,7 @@ public interface DaoResource<T> {
 
     void create(T t);
 
-    void updateOne(int id, T t);
+    void updateOne(T t);
 
     void delete(int id);
 }

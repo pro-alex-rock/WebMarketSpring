@@ -1,6 +1,5 @@
 package com.filter;
 
-import com.configuration.UserServiceFactory;
 import com.service.UserService;
 
 import javax.servlet.*;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserFilter implements Filter {
-    private final UserService userService = UserServiceFactory.getInstance();
+    private final UserService userService = null;
 
 
     @Override

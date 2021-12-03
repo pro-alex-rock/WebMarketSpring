@@ -1,19 +1,16 @@
 package com.model;
 
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Component
-@Data
 public class Product {
     private int id;
     private String name;
     private BigDecimal price;
     private String description;
-/*
     public int getId() {
         return id;
     }
@@ -71,5 +68,5 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 '}';
-    }*/
+    }
 }

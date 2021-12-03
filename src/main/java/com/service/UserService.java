@@ -18,12 +18,6 @@ public class UserService implements DefaultService<User> {
         this.jdbcUserDao = jdbcUserDao;
     }
 
-    //private final JdbcUserDao jdbcUserDao = (JdbcUserDao) UserDaoFactory.getInstance(new PostgresSource());
-
-    public boolean isExistUser(String login) {
-        return jdbcUserDao.getByName(login).isPresent();
-    }
-
     public Optional<User> getByName(String login) {
         return jdbcUserDao.getByName(login);
     }
@@ -33,7 +27,7 @@ public class UserService implements DefaultService<User> {
     }*/
 
     @Override
-    public User selectOne(int id) {
+    public Optional<User> selectOne(int id) {
         return jdbcUserDao.selectOne(id);
     }
 

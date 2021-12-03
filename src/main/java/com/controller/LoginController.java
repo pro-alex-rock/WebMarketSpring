@@ -22,9 +22,6 @@ public class LoginController {
     private final UserService userService;
     private final SecurityService securityService;
 
-    @Value("${cookie.expiration.date}")
-    private int cookieExpiration;
-
     @Autowired
     public LoginController(UserService userService, SecurityService securityService) {
         this.userService = userService;
@@ -48,6 +45,8 @@ public class LoginController {
             String passwordEncode = securityService.getPasswordEncode(password + user.getSole());
             if (Objects.equals(passwordEncode, user.getPassword())) {
                 Cookie cookie = new Cookie("user-token", user.getSole());
+                //@Value("${cookie.expiration.date}")
+                int cookieExpiration = 60000;
                 cookie.setMaxAge(cookieExpiration);
                 model.addAttribute(cookie);
                 return "redirect:/products";

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/edit")
+@CrossOrigin("products")
 public class EditController {
     private final DefaultService<Product> productService;
 
@@ -19,7 +20,7 @@ public class EditController {
 
     @GetMapping("/{id}")
     public String editPage(@PathVariable("id") String id, Model model) {
-        Product product = productService.selectOne(Integer.parseInt(id));
+        Product product = productService.selectOne(Integer.parseInt(id)).get();
         model.addAttribute("product", product);
         return "redirect:/edit";
     }

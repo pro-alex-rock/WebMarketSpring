@@ -2,7 +2,6 @@ package com.controller;
 
 import com.model.Product;
 import com.service.DefaultService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 public class EditController {
     private final DefaultService<Product> productService;
 
-    @Autowired
     public EditController(DefaultService<Product> productService) {
         this.productService = productService;
     }

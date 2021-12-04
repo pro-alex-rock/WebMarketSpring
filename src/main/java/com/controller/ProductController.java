@@ -2,7 +2,6 @@ package com.controller;
 
 import com.model.Product;
 import com.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping({"/", "/products"})
+@RequestMapping(path = {"/", "/products"})
 public class ProductController {
 
     private final ProductService productService;
 
-    @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -46,8 +44,34 @@ public class ProductController {
         }
     }
 
+
+    @GetMapping("/cart")
+    public RedirectView toBasket() {
+        return new RedirectView("basket");
+    }
+
+    @GetMapping("/cart/${id}")
+    public RedirectView addToBasket(@PathVariable("id") String id) {
+        return new RedirectView(("/basket/" + id));
+    }
+
+    @GetMapping("/cart/delete/{id}")
+    public RedirectView deleteFromBasket(@PathVariable("id") String id) {
+        return new RedirectView("/cart/delete/" + id);
+    }
+
+    @GetMapping("/cart/clear")
+    public RedirectView clearBasket() {
+        return new RedirectView("/cart/clear");
+    }
+
     @PostMapping("/edit/{id}")
     public RedirectView editProduct(@PathVariable("id") String id) {
         return new RedirectView("edit/" + id);
+    }
+
+    @PostMapping("/delete/{id}")
+    public RedirectView deleteProduct(@PathVariable("id") String id) {
+        return new RedirectView("delete/" + id);
     }
 }

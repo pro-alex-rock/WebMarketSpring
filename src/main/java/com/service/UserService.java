@@ -13,7 +13,6 @@ import java.util.Optional;
 public class UserService implements DefaultService<User> {
     private final DaoResource<User> jdbcUserDao;
 
-    @Autowired
     public UserService(DaoResource<User> jdbcUserDao) {
         this.jdbcUserDao = jdbcUserDao;
     }
@@ -21,10 +20,6 @@ public class UserService implements DefaultService<User> {
     public Optional<User> getByName(String login) {
         return jdbcUserDao.getByName(login);
     }
-
-    /*public void update(User user) {
-        jdbcUserDao.updateOne(user);
-    }*/
 
     @Override
     public Optional<User> selectOne(int id) {

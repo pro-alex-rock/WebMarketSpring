@@ -3,8 +3,6 @@ package com.controller;
 import com.model.User;
 import com.service.SecurityService;
 import com.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +20,6 @@ public class LoginController {
     private final UserService userService;
     private final SecurityService securityService;
 
-    @Autowired
     public LoginController(UserService userService, SecurityService securityService) {
         this.userService = userService;
         this.securityService = securityService;

@@ -1,9 +1,7 @@
 package com.service;
 
-import com.dao.DaoResource;
 import com.dao.JdbcProductDao;
 import com.model.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +12,6 @@ import java.util.Optional;
 public class ProductService implements DefaultService<Product> {
     private final JdbcProductDao productDao;
 
-    @Autowired
     public ProductService(JdbcProductDao productDao){
         this.productDao = productDao;
     }

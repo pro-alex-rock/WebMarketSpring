@@ -12,15 +12,14 @@ import java.util.Optional;
 
 
 @Repository
-public class JdbcProductDao implements DaoResource<Product> {
-    private static final Logger logger = LoggerFactory.getLogger(JdbcProductDao.class);
+public class ProductDao {
+    private static final Logger logger = LoggerFactory.getLogger(ProductDao.class);
     private final JdbcTemplate jdbcTemplate;
 
-    public JdbcProductDao(JdbcTemplate jdbcTemplate) {
+    public ProductDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
     public Optional<Product> selectOne(int id) {
         if (id <= 0) {
             logger.info("Inserted incorrect id.");
@@ -30,7 +29,6 @@ public class JdbcProductDao implements DaoResource<Product> {
                 , new BeanPropertyRowMapper<>(Product.class), new Object[]{id}).stream().findAny();
     }
 
-    @Override
     public Optional<Product> getByName(String name) {
         if (name == null) {
             logger.info("Inserted incorrect name.");
@@ -41,26 +39,22 @@ public class JdbcProductDao implements DaoResource<Product> {
     }
 
 
-    @Override
     public List<Product> selectAll() {
         return jdbcTemplate.query("SELECT id, name, price, description FROM products", new BeanPropertyRowMapper<>(Product.class));
     }
 
-    @Override
     public void create(Product product) {
         jdbcTemplate.update("INSERT INTO products (name, price, description) VALUES (?, ?, ?)",
                 product.getName(), product.getPrice(), product.getDescription());
         logger.info("The product {} created.", product);
     }
 
-    @Override
     public void updateOne(Product product) {
         jdbcTemplate.update("UPDATE products SET name = ?, price = ?, description = ? WHERE name = ?",
                 product.getName(), product.getPrice(), product.getDescription(), product.getName());
         logger.info("The product: {} updated", product);
     }
 
-    @Override
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM products WHERE id = ?", id);
         logger.info("The product with id: {} deleted", id);

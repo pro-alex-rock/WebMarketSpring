@@ -1,24 +1,20 @@
 package com.controller;
 
-import com.model.User;
+import com.model.Credentials;
 import com.service.SecurityService;
-import com.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/registration")
 public class RegisterController {
-    private final UserService userService;
     private final SecurityService securityService;
 
-    public RegisterController(UserService userService, SecurityService securityService) {
-        this.userService = userService;
+    public RegisterController(SecurityService securityService) {
         this.securityService = securityService;
     }
 
@@ -28,18 +24,13 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String registration(HttpServletRequest request, Model model) {
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String sole = securityService.getUUID();
-        String passwordEncoded = securityService.getPasswordEncode(password + sole);
-
-        User user = new User();
-        user.setName(login);
-        user.setPassword(passwordEncoded);
-        user.setSole(sole);
-
-        userService.create(user);
-        return "redirect:/products";
+    //public String registration(HttpServletRequest request, Model model) {
+    public String registration(@RequestParam("login") String login, @RequestParam("password") String password, Model model) {
+        /*String login = request.getParameter("login");
+        String password = request.getParameter("password");*/
+        Credentials credentials = new Credentials(login, password);
+        securityService.signUp(credentials);
+        model.addAttribute(securityService.createCookie());
+        return "redirect:/login";
     }
 }

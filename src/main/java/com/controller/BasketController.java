@@ -2,7 +2,7 @@ package com.controller;
 
 import com.model.Product;
 import com.service.BasketService;
-import com.service.DefaultService;
+import com.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +15,9 @@ import java.util.List;
 @RequestMapping(path = "/cart")
 public class BasketController {
     private final BasketService basketService;
-    private final DefaultService<Product> productService;
+    private final ProductService productService;
 
-    public BasketController(BasketService basketService, DefaultService<Product> productService) {
+    public BasketController(BasketService basketService, ProductService productService) {
         this.basketService = basketService;
         this.productService = productService;
     }
@@ -37,7 +37,7 @@ public class BasketController {
 
     @GetMapping("/{id}")
     public String addToBasket(@PathVariable("id") String id) {
-        Product product = productService.selectOne(Integer.parseInt(id)).get();
+        Product product = productService.select(Integer.parseInt(id)).get();
         basketService.addProduct(product);
         return "redirect:/products";
     }

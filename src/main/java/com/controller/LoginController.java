@@ -8,10 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -31,23 +30,13 @@ public class LoginController {
     }
 
     @PostMapping
-    public String login(HttpServletRequest request, Model model) {
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-
+    public String login(@RequestParam("login") String login, @RequestParam("password") String password, Model model) {
         Optional<User> userOptional = userService.getByName(login);
-
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            String passwordEncode = securityService.getPasswordEncode(password + user.getSole());
-            if (Objects.equals(passwordEncode, user.getPassword())) {
-                Cookie cookie = new Cookie("user-token", user.getSole());
-                //@Value("${cookie.expiration.date}")
-                int cookieExpiration = 60000;
-                cookie.setMaxAge(cookieExpiration);
-                model.addAttribute(cookie);
-                return "redirect:/products";
-            }
+            Optional<Cookie> cookieOptional = securityService.refreshCookies(user, password);
+            cookieOptional.ifPresent(model::addAttribute);
+            return "redirect:/products";
         }
         return "redirect:/registration";
     }

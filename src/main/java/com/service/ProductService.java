@@ -1,6 +1,6 @@
 package com.service;
 
-import com.dao.JdbcProductDao;
+import com.dao.ProductDao;
 import com.model.Product;
 import org.springframework.stereotype.Service;
 
@@ -9,39 +9,33 @@ import java.util.Optional;
 
 
 @Service
-public class ProductService implements DefaultService<Product> {
-    private final JdbcProductDao productDao;
+public class ProductService {
+    private final ProductDao productDao;
 
-    public ProductService(JdbcProductDao productDao){
+    public ProductService(ProductDao productDao){
         this.productDao = productDao;
     }
 
-    @Override
-    public Optional<Product> selectOne(int id) {
+    public Optional<Product> select(int id) {
         return productDao.selectOne(id);
     }
 
-    @Override
     public Optional<Product> getByName(String name) {
         return productDao.getByName(name);
     }
 
-    @Override
     public List<Product> selectAll() {
         return productDao.selectAll();
     }
 
-    @Override
     public void create(Product product) {
         productDao.create(product);
     }
 
-    @Override
-    public void updateOne(Product product) {
+    public void update(Product product) {
         productDao.updateOne(product);
     }
 
-    @Override
     public void delete(int id) {
         productDao.delete(id);
     }

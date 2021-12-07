@@ -13,9 +13,9 @@ import java.util.Optional;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class JdbcProductDaoTest {
+class ProductDaoTest {
     private final JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
-    private JdbcProductDao jdbcProductDao = new JdbcProductDao(jdbcTemplate);
+    private ProductDao productDao = new ProductDao(jdbcTemplate);
 
 
     @Test
@@ -24,7 +24,7 @@ class JdbcProductDaoTest {
         when(jdbcTemplate.query("SELECT name, price, description FROM products WHERE id=?"
                 , new BeanPropertyRowMapper<>(Product.class), new Object[]{1}).stream().findAny())
                 .thenReturn(Optional.of(new Product(1, "Name", new BigDecimal(10), "TestDesc")));
-        Product actual = jdbcProductDao.selectOne(1).get();
+        Product actual = productDao.selectOne(1).get();
         Assertions.assertEquals(expected.getName(), actual.getName());
         Assertions.assertEquals(expected.getPrice(), actual.getPrice());
         Assertions.assertEquals(expected.getDescription(), actual.getDescription());
@@ -36,7 +36,7 @@ class JdbcProductDaoTest {
         when(jdbcTemplate.query("SELECT name, price, description FROM products WHERE id=?"
                 , new BeanPropertyRowMapper<>(Product.class), new Object[]{1}).stream().findAny())
                 .thenReturn(Optional.of(new Product(2, "Name", new BigDecimal(20), "TestDesc")));
-        Product actual = jdbcProductDao.selectOne(1).get();
+        Product actual = productDao.selectOne(1).get();
         Assertions.assertNotEquals(expected.getName(), actual.getName());
         Assertions.assertNotEquals(expected.getPrice(), actual.getPrice());
         Assertions.assertNotEquals(expected.getDescription(), actual.getDescription());
@@ -48,7 +48,7 @@ class JdbcProductDaoTest {
         when(jdbcTemplate.query("SELECT name, price, description FROM products WHERE name='Name'"
                 , new BeanPropertyRowMapper<>(Product.class), new Object[]{1}).stream().findAny())
                 .thenReturn(Optional.of(new Product(1, "Name", new BigDecimal(10), "TestDesc")));
-        Product actual = jdbcProductDao.getByName("Name").get();
+        Product actual = productDao.getByName("Name").get();
         Assertions.assertEquals(expected.getName(), actual.getName());
         Assertions.assertEquals(expected.getPrice(), actual.getPrice());
         Assertions.assertEquals(expected.getDescription(), actual.getDescription());
@@ -60,7 +60,7 @@ class JdbcProductDaoTest {
         when(jdbcTemplate.query("SELECT name, price, description FROM products WHERE name='Name'"
                 , new BeanPropertyRowMapper<>(Product.class), new Object[]{1}).stream().findAny())
                 .thenReturn(Optional.of(new Product(1, "OtherName", new BigDecimal(10), "TestDesc")));
-        Product actual = jdbcProductDao.getByName("Name").get();
+        Product actual = productDao.getByName("Name").get();
         Assertions.assertNotEquals(expected.getName(), actual.getName());
         Assertions.assertNotEquals(expected.getPrice(), actual.getPrice());
         Assertions.assertNotEquals(expected.getDescription(), actual.getDescription());
@@ -75,7 +75,7 @@ class JdbcProductDaoTest {
                 .thenReturn(List.of(
                         new Product(1, "Name", new BigDecimal(10), "TestDesc")
                         , new Product(1, "OtherName", new BigDecimal(10), "TestDesc")));
-        List<Product> actual = jdbcProductDao.selectAll();
+        List<Product> actual = productDao.selectAll();
         Assertions.assertEquals(expected, actual);
         Assertions.assertEquals(expected.size(), actual.size());
 

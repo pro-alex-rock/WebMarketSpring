@@ -32,16 +32,6 @@ public class UserFilter implements Filter {
         } else {
             response.sendRedirect("/login");
         }
-
-       /* String login = request.getParameter("login");
-        String password = request.getParameter("password");
-
-        if (userService.isExistUser(login, password)) {
-            response.sendRedirect("/products");
-            filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/registration");
-        }*/
     }
 
     @Override

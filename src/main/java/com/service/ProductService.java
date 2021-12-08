@@ -17,11 +17,11 @@ public class ProductService {
     }
 
     public Optional<Product> select(int id) {
-        return productDao.selectOne(id);
+        return Optional.of(productDao.select(id));
     }
 
     public Optional<Product> getByName(String name) {
-        return productDao.getByName(name);
+        return Optional.of(productDao.getByName(name));
     }
 
     public List<Product> selectAll() {

@@ -1,6 +1,5 @@
 package com.controller;
 
-import com.model.Product;
 import com.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/delete")
+@RequestMapping("/products/delete")
 public class DeleteController {
 
     private final ProductService productService;

@@ -20,11 +20,11 @@ public class UserService {
     }
 
     public Optional<User> getByName(String login) {
-        return userDao.getByName(login);
+        return Optional.of(userDao.getByName(login));
     }
 
     public Optional<User> select(int id) {
-        return userDao.select(id);
+        return Optional.of(userDao.select(id));
     }
 
     public List<User> selectAll() {

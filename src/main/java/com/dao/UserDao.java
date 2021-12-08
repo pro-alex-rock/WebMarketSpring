@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class UserDao {
@@ -20,22 +19,22 @@ public class UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Optional<User> getByName(String name) {
+    public User getByName(String name) {
         if (name == null) {
             logger.info("Inserted incorrect name.");
             throw new RuntimeException("Inserted incorrect name.");
         }
-        return jdbcTemplate.query("SELECT id, username, password, sole FROM users WHERE username = ?"
-                , new BeanPropertyRowMapper<>(User.class), new Object[]{name}).stream().findAny();
+        return jdbcTemplate.queryForObject("SELECT id, username, password, sole FROM users WHERE username = ?"
+                , new BeanPropertyRowMapper<>(User.class), name);
     }
 
-    public Optional<User> select(int id) {
+    public User select(int id) {
         if (id <= 0) {
             logger.info("Inserted incorrect id.");
             throw new RuntimeException("Inserted incorrect id.");
         }
-        return jdbcTemplate.query("SELECT username, password, sole FROM users WHERE id=?"
-                , new BeanPropertyRowMapper<>(User.class), new Object[]{id}).stream().findAny();
+        return jdbcTemplate.queryForObject("SELECT username, password, sole FROM users WHERE id=?"
+                , new BeanPropertyRowMapper<>(User.class), id);
     }
 
     public List<User> selectAll() {

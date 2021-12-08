@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "/cart")
+@RequestMapping(path = "/products/cart")
 public class BasketController {
     private final BasketService basketService;
     private final ProductService productService;

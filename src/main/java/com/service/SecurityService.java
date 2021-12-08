@@ -4,7 +4,6 @@ import com.model.Credentials;
 import com.model.User;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -45,6 +44,17 @@ public class SecurityService {
 
     private String getUUID() {
         return UUID.randomUUID().toString();
+    }
+
+    public boolean validateUser(Cookie[] cookies) {
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equalsIgnoreCase("user-token")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public Optional<Cookie> refreshCookies(User user, String password) {

@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Repository
@@ -20,27 +19,28 @@ public class ProductDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Optional<Product> selectOne(int id) {
+    public Product select(int id) {
         if (id <= 0) {
             logger.info("Inserted incorrect id.");
             throw new RuntimeException("Inserted incorrect id.");
         }
-        return jdbcTemplate.query("SELECT name, price, description FROM products WHERE id=?"
-                , new BeanPropertyRowMapper<>(Product.class), new Object[]{id}).stream().findAny();
+        return jdbcTemplate.queryForObject("SELECT name, price, description FROM products WHERE id=?"
+                , new BeanPropertyRowMapper<>(Product.class), id);
     }
 
-    public Optional<Product> getByName(String name) {
+    public Product getByName(String name) {
         if (name == null) {
             logger.info("Inserted incorrect name.");
             throw new RuntimeException("Inserted incorrect name.");
         }
-        return jdbcTemplate.query("SELECT name, price, description FROM products WHERE name=?"
-                , new BeanPropertyRowMapper<>(Product.class), new Object[]{name}).stream().findAny();
+        return jdbcTemplate.queryForObject("SELECT name, price, description FROM products WHERE name=?"
+                , new BeanPropertyRowMapper<>(Product.class), name);
     }
 
 
     public List<Product> selectAll() {
-        return jdbcTemplate.query("SELECT id, name, price, description FROM products", new BeanPropertyRowMapper<>(Product.class));
+        return jdbcTemplate.query("SELECT id, name, price, description FROM products"
+                , new BeanPropertyRowMapper<>(Product.class));
     }
 
     public void create(Product product) {

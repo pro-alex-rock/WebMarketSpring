@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/edit")
+@RequestMapping("/products/edit")
 public class EditController {
     private final ProductService productService;
 

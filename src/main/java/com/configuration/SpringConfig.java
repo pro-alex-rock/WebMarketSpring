@@ -4,50 +4,42 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import javax.sql.DataSource;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com")
+@ComponentScan(basePackages = "com.web")
 @PropertySource(value = "classpath:application.properties")
 public class SpringConfig implements WebMvcConfigurer {
 
 
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/product_db");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("postgres");
-        return dataSource;
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.freeMarker();
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
+    public FreeMarkerConfigurer freeMarkerConfigurer() {
+        FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+        configurer.setTemplateLoaderPath("/WEB-INF/views");
+        return configurer;
     }
 
-    @Bean(name = "freeMarkerConfiguration")
+    /*@Bean(name = "freeMarkerConfiguration")
     public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
         FreeMarkerConfigurationFactoryBean bean = new FreeMarkerConfigurationFactoryBean();
-        bean.setTemplateLoaderPath("classpath:/WEB-INF/views/");
+        bean.setTemplateLoaderPath("classpath:/WEB-INF/views");
         return bean;
     }
 
     @Bean
     public ViewResolver setupViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setPrefix("/WEB-INF/views");
         resolver.setSuffix(".ftl");
         return resolver;
-    }
+    }*/
 }

@@ -4,6 +4,7 @@ import com.model.Credentials;
 import com.model.User;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -12,10 +13,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-/*@PropertySource(value = "classpath:application.properties")*/
+@PropertySource(value = "classpath:application.properties")
 public class SecurityService {
 
-    @Value("${spring.cookie.expiration.date=60000}")
+    @Value("${spring.cookie.expiration.date}")
     private int cookieExpiration;
     private final UserService userService;
 

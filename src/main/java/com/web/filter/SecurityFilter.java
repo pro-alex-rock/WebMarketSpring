@@ -2,6 +2,7 @@ package com.web.filter;
 
 import com.service.SecurityService;
 import com.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -13,8 +14,8 @@ import java.io.IOException;
 //@WebFilter("/*")
 @Component
 public class SecurityFilter implements Filter {
-    private final SecurityService securityService;
-    private final UserService userService;
+    private SecurityService securityService;
+    private UserService userService;
 
     public SecurityFilter(SecurityService securityService, UserService userService) {
         this.securityService = securityService;
@@ -24,7 +25,6 @@ public class SecurityFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse res = (HttpServletResponse) servletResponse;
         if (securityService.validateUser(req.getCookies())) {
             filterChain.doFilter(servletRequest, servletResponse);
         }
@@ -37,5 +37,17 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void destroy() {
+    }
+
+    public SecurityFilter() {}
+
+    @Autowired
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

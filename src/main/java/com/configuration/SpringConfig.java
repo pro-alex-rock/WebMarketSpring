@@ -50,12 +50,4 @@ public class SpringConfig implements WebMvcConfigurer {
         resolver.setSuffix(".ftl");
         return resolver;
     }
-
-    /*@Bean
-    public FreeMarkerConfigurer freeMarkerConfigurer(){
-        FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
-        freeMarkerConfigurer.setTemplateLoaderPath("classpath:/WEB-INF/views/");
-        freeMarkerConfigurer.setDefaultEncoding("UTF-8");
-        return freeMarkerConfigurer;
-    }*/
 }

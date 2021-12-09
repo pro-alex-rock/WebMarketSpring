@@ -1,4 +1,3 @@
-/*
 package com.dao;
 
 import com.model.Product;
@@ -81,4 +80,4 @@ class ProductDaoITest {
         Assertions.assertEquals(expected.size(), actual.size());
 
     }
-}*/
+}

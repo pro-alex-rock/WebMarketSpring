@@ -1,4 +1,4 @@
-package com.controller;
+package com.web.controller;
 
 import com.model.Product;
 import com.service.BasketService;

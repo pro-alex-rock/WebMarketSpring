@@ -1,6 +1,6 @@
 package com.service;
 
-import com.dao.BasketRepo;
+import com.dao.BasketRepository;
 import com.model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BasketControllerTest {
-    private final BasketService basketService = new BasketService(new BasketRepo());
+    private final BasketService basketService = new BasketService(new BasketRepository());
 
     @BeforeEach
     public void setUp() {

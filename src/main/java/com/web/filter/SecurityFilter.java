@@ -1,7 +1,8 @@
-package com.filter;
+package com.web.filter;
 
 import com.service.SecurityService;
 import com.service.UserService;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/*")
+//@WebFilter("/*")
+@Component
 public class SecurityFilter implements Filter {
     private final SecurityService securityService;
     private final UserService userService;

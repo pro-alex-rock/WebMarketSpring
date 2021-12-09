@@ -37,11 +37,6 @@ public class SecurityService {
         userService.create(user);
     }
 
-    public Cookie createCookie() {
-        String token = getUUID();
-        return new Cookie("user-token", token);
-    }
-
     private String getUUID() {
         return UUID.randomUUID().toString();
     }

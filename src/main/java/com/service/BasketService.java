@@ -1,7 +1,7 @@
 package com.service;
 
 
-import com.dao.BasketRepo;
+import com.dao.BasketRepository;
 import com.model.Product;
 import org.springframework.stereotype.Service;
 
@@ -9,24 +9,24 @@ import java.util.List;
 
 @Service
 public class BasketService {
-    private BasketRepo basketRepo;
+    private BasketRepository basketRepository;
 
-    public BasketService(BasketRepo basketRepo) {
-        this.basketRepo = basketRepo;
+    public BasketService(BasketRepository basketRepository) {
+        this.basketRepository = basketRepository;
     }
 
     public void addProduct(Product product) {
-        basketRepo.addProduct(product);
+        basketRepository.addProduct(product);
     }
 
     public List<Product> getBasket() {
-        return basketRepo.getAll();
+        return basketRepository.getAll();
     }
     public void delete(int id) {
-        basketRepo.delete(id);
+        basketRepository.delete(id);
     }
 
     public void clear() {
-        basketRepo.clear();
+        basketRepository.clear();
     }
 }
